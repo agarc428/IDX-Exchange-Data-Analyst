@@ -1,0 +1,8 @@
+@"
+# Raw data folders
+CMLR_Sold/
+CMLR_Listed/
+
+# Any CSV anywhere in the repo (raw + combined outputs)
+*.csv
+"@ | Out-File -Encoding utf8 .gitignore
