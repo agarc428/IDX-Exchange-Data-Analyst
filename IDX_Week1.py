@@ -4,20 +4,9 @@ IDX
 
 Week 1 Deliverables
 ------------------------------------
-Loads every monthly CRMLS file from its folder, concatenates them into two
-combined datasets (Sold and Listing), filters both to
-PropertyType == 'Residential', and saves the results as new CSVs.
-
-Folder layout:
-    CMLR_Sold/    CRMLSSold202401.csv    ... CRMLSSold202604.csv
-    CMLR_Listed/  CRMLSListing202401.csv ... CRMLSListing202604.csv
-
-Data runs January 2024 through April 2026 (202604), the last month
-available in the provided dataset. The date range is read from the file
-names, so no dates are hard-coded.
-
-Row counts are printed at every stage. After running, paste the printed
-numbers into the ROW COUNT LOG comments at the bottom of this file.
+Objective: Load and concatenate all monthly MLS files from
+ January 2024 through the most recently completed calendar 
+ month into analysis-ready combined datasets.
 """
 
 import glob
@@ -26,17 +15,13 @@ import re
 
 import pandas as pd
 
-# ---------------------------------------------------------------------------
 # Configuration
-# ---------------------------------------------------------------------------
 SOLD_DIR = "C:/Users/Arri7/OneDrive/Desktop/IDX_DA61/csv/CRML_Sold"
 LISTED_DIR = "C:/Users/Arri7/OneDrive/Desktop/IDX_DA61/csv/CRML_Listed"
 OUTPUT_DIR = "Week 1 Deliverables"              # folder to write the combined CSVs
 
 
-# ---------------------------------------------------------------------------
 # Find files in a folder and check for missing months
-# ---------------------------------------------------------------------------
 def find_monthly_files(folder, prefix):
     """
     Return a sorted list of (YYYYMM, path) for files named <prefix>YYYYMM.csv.
@@ -52,9 +37,8 @@ def find_monthly_files(folder, prefix):
     if not files:
         raise FileNotFoundError(f"No {prefix}YYYYMM.csv files found in {folder}")
 
-    files.sort()  # YYYYMM strings sort chronologically
+    files.sort()  
 
-    # Gap check: every month between first and last should be present
     found = {ym for ym, _ in files}
     y, m = int(files[0][0][:4]), int(files[0][0][4:])
     last = files[-1][0]
@@ -68,9 +52,7 @@ def find_monthly_files(folder, prefix):
     return files
 
 
-# ---------------------------------------------------------------------------
 # Load and concatenate one dataset type (Sold or Listing)
-# ---------------------------------------------------------------------------
 def load_and_concat(folder, prefix):
     """
     Read every monthly file in a folder, print each file's row count,
@@ -108,9 +90,7 @@ def filter_residential(df, label):
     return filtered
 
 
-# ---------------------------------------------------------------------------
 # Main
-# ---------------------------------------------------------------------------
 def main():
     # ----- Sold -----
     print(f"Loading SOLD files from {SOLD_DIR}/ ...")
@@ -144,19 +124,18 @@ if __name__ == "__main__":
     main()
 
 
-# ---------------------------------------------------------------------------
 # ROW COUNT LOG  
-# ---------------------------------------------------------------------------
+
 # Months covered: 202401 – 202604
 #
 # SOLD
-#   Sum of monthly rows before concatenation:  454,040
-#   Rows after concatenation:                  454,040
-#   Rows before Residential filter:            454,040
-#   Rows after Residential filter:             305,897
+#   Sum of monthly rows before concatenation:  736,481
+#   Rows after concatenation:                  736,481
+#   Rows before Residential filter:            736,481
+#   Rows after Residential filter:             494,343
 #
 # LISTINGS
-#   Sum of monthly rows before concatenation:  860,898
-#   Rows after concatenation:                  860,898
-#   Rows before Residential filter:            860,898
-#   Rows after Residential filter:             547,162_
+#   Sum of monthly rows before concatenation:  1,021,765
+#   Rows after concatenation:                  1,021,765
+#   Rows before Residential filter:            1,021,765
+#   Rows after Residential filter:             649,615

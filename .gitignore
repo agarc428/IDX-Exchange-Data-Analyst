@@ -1,8 +1,17 @@
 @"
 # Raw data folders
-CMLR_Sold/
-CMLR_Listed/
+CRML_Sold/
+CRML_Listed/
 
-# Any CSV anywhere in the repo (raw + combined outputs)
+# Any CSV anywhere in the repo (raw + combined outputs + Week 2 reports)
 *.csv
+*.csv.part
+
+# Week 2 generated outputs
+Week 2 Deliverables/reports/
+Week 2 Deliverables/figures/
+*.png
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
 "@ | Out-File -Encoding utf8 .gitignore
