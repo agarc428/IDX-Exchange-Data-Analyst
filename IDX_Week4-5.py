@@ -16,6 +16,15 @@ counts, data type confirmations, date consistency flag counts, and a geographic
 data quality summary noting any invalid coordinate records.
 """
 
+"""
+Ariana Garcia Villabla
+IDX
+
+Weeks 4-5 Deliverables
+------------------------------------
+Objective: Clean and prepare the MLS Sold dataset for reliable analytics.
+"""
+
 import os
 
 import pandas as pd
@@ -39,7 +48,7 @@ DROP_COLUMNS = [
     "ListAgentFirstName", "ListAgentLastName", "ListAgentFullName",
     "CoListAgentFirstName", "CoListAgentLastName",
     "BuyerAgentFirstName", "BuyerAgentLastName", "BuyerAgentMlsId",
-    "ListOfficeName", "BuyerOfficeName", "CoListOfficeName",
+    "CoListOfficeName",
     "ListingKeyNumeric", "LotSizeArea", "LotSizeSquareFeet",
     "OriginatingSystemName", "OriginatingSystemSubName",
 ]
@@ -124,9 +133,6 @@ def confirm_dtypes(sold):
     print(sold[DATE_FIELDS + NUMERIC_FIELDS].dtypes.to_string())
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
 def main():
     section("LOADING")
     sold = pd.read_csv(INPUT_FILE, low_memory=False)
@@ -154,4 +160,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
